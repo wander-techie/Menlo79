@@ -1,0 +1,48 @@
+
+    <div class="col-md-12 mb-3 mt-3">
+        <div class="row">
+            <div class="col-md-12 mt-5 text-center">
+                <h4>Search for an Animal</h4>
+            </div>
+        </div>
+    </div> 
+    <div class="col-md-12">
+        <div class="row">
+            <form class="text-center">
+                <mat-form-field class="example-form">
+                   <input
+                           type="text"
+                           placeholder="Enter Animal Name"
+                           [formControl]="myControl"
+                           matInput
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getSelection($event.option.value)'>
+                        <mat-option
+                            *ngFor="let option of filteredOptions | async"
+                            [value]="option.name">
+                          {{option.name}}
+                       </mat-option>
+                   </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+    <div class="total-record mb-3" *ngIf="recordCount>0">About {{recordCount}} record<span *ngIf="recordCount>1">s</span> found</div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3" *ngFor="let animal of filteredAnimals">
+                <div class="user-card">
+                    <div class="user-info">
+                        <div class="user-img">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-heart" viewBox="0 0 16 16">
+                                <path d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z"/>
+                            </svg>
+                        </div>
+                        <div class="user-name text-truncate text-truncate--2">{{animal.name}}</div>
+                        <p>{{animal.intro}}</p>
+                        <button class="btn btn-primary" (click)="getAnimalDetails(animal)">see details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

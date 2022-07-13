@@ -1,0 +1,75 @@
+$boxShadow: 0px 2px 3px #7e7e7e;
+$light-gray: #cecece;
+.page-header {
+    background: #f8f8f8;
+    padding: 10px;
+    border-bottom: 1px solid $light-gray;
+}
+.total-record {
+    font-size: 13px;
+    color: #464646;
+}
+.user-card {
+    background-color: #3b71c1;
+    border-radius: 5px;
+    box-shadow: $boxShadow;
+    margin-bottom: 20px;
+    padding-top: 100px;
+    .user-info {
+        padding: 10px;
+        background: #ffffff;
+        position: relative;
+        text-align: center;
+        p{
+            font-size: 12px;
+            color: #464646;
+            padding: 10px 0;
+            margin: 0px;
+        }
+        .user-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: $boxShadow;
+            border:2px solid $light-gray;
+            background: #f2f2f2;
+            position: absolute;
+            top: -30px;
+            left: 38%;
+        }
+        .user-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+            line-height: 20px;
+            padding-top: 30px;
+        }
+        .email {
+            font-size: 11px;
+            color: #7e7e7e;
+        }
+    }
+    
+}
+.no-data {
+    background: $light-gray;
+    span {
+        font-size: 12px;
+    }
+}
+.example-form {
+    width: 80%;
+    margin: auto;
+    input {
+        width: 100%;
+    }
+}
+.search-info {
+    border-bottom: 1px solid $light-gray;
+    font-size: 12px;
+    color: #464646;
+    span {
+        font-weight: bold;
+        color: #000000;
+    }
+}
