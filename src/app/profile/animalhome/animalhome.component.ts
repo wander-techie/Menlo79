@@ -12,7 +12,7 @@ import {
   takeUntil
 } from "rxjs/operators";
 import { FormControl } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-animalhome',
@@ -24,20 +24,13 @@ export class AnimalhomeComponent implements OnInit, OnDestroy {
   filteredAnimals: Animals[] = [];
   myControl = new FormControl('');
   options = [];
-  filteredOptions: Observable<any>;
+  filteredOptions!: Observable<any>;
   recordCount: number = 0;
   destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild('animalNamesInput', { static: true }) animalNamesInput!: ElementRef;
 
   constructor(private profileService: ProfileService, private router: Router) { 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap(val => {
-            return this.filter(val || '')
-      }) 
-    )
+    
   }
   filter(val: string):Observable<any> {
     return of(this.allAnimals.filter(option => { 
@@ -47,11 +40,18 @@ export class AnimalhomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAnimals();
-   // this.inputValueChanges();
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(val => {
+            return this.filter(val || '')
+      }) 
+    )
   }
 
   getAnimals() {
-    this.profileService.getAllAnimals().subscribe((data)=> {
+    this.profileService.getAllAnimals().pipe(takeUntil(this.destroy$)).subscribe((data)=> {
       this.allAnimals = data;
     })
   }
